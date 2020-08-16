@@ -31,7 +31,11 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::resource('users', 'UserController')->except(['show']);
+
         Route::resource('categories', 'CategoryController')->except(['show']);
+        Route::get('categories/{category}/toggle-status', 'CategoryController@toggleStatus')->name('categories.toggle-status');
+
         Route::resource('products', 'ProductController')->except(['show']);
+        Route::get('products/{product}/toggle-status', 'ProductController@toggleStatus')->name('products.toggle-status');
     });
 });

@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('categories.index', [
-            'categories' => Category::withCount('products')->get()
+            'categories' => Category::withCount('products')->orderBy('is_active', 'desc')->get()
         ]);
     }
 
@@ -57,6 +57,21 @@ class CategoryController extends Controller
         return view('categories.form', [
             'category' => $category
         ]);
+    }
+
+    /**
+     * Change status of record.
+     *
+     * @param  Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function toggleStatus(Category $category)
+    {
+        $category->update([
+            'is_active' => !$category->is_active,
+        ]);
+
+        return redirect('categories')->with('status', 'Category status changed.');
     }
 
     /**

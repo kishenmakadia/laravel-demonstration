@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('products.index', [
-            'products' => Product::with('categories')->get()
+            'products' => Product::with('categories')->orderBy('is_active', 'desc')->get()
         ]);
     }
 
@@ -27,7 +27,7 @@ class ProductController extends Controller
     public function create()
     {
         return view('products.form', [
-            'categories' => Category::all()
+            'categories' => Category::where('is_active', true)->get()
         ]);
     }
 
@@ -64,6 +64,21 @@ class ProductController extends Controller
             'categories' => Category::all(),
             'product' => $product
         ]);
+    }
+
+    /**
+     * Change status of record.
+     *
+     * @param  Product  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function toggleStatus(Product $product)
+    {
+        $product->update([
+            'is_active' => !$product->is_active,
+        ]);
+
+        return redirect('products')->with('status', 'Product status changed.');
     }
 
     /**

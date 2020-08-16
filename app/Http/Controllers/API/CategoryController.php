@@ -9,10 +9,14 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        $query = Category::where('is_active', true);
+
+        $categories = $query->get();
+
         return response()->json([
             'message' => 'List of categories.',
             'data' => [
-                'categories' => Category::all()
+                'categories' => $categories
             ]
         ]);
     }

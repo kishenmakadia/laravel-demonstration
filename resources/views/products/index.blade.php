@@ -29,6 +29,7 @@
                                 <tr>
                                     <th>{{ __('Name') }}</th>
                                     <th>{{ __('Slug') }}</th>
+                                    <th>{{ __('Active') }} ({{__('Click to toggle')}})</th>
                                     <th>{{ __('Categories') }}</th>
                                     <th></th>
                                 </tr>
@@ -43,6 +44,13 @@
                                     </td>
                                     <td>
                                         {{$product->slug}}
+                                    </td>
+                                    <td>
+                                        <a href="{{route('products.toggle-status',['product' => $product])}}">
+                                            <span class="{{ $product->is_active ? 'text-success' : 'text-danger' }}">
+                                                {{ $product->is_active ? 'Yes' : 'No' }}
+                                            </span>
+                                        </a>
                                     </td>
                                     <td>{{$product->categories->count() ? $product->categories->implode('name', ', ') : '-'}}
                                     </td>

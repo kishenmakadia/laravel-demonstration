@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $query = Product::with('categories:id,name');
+        $query = Product::with('categories:id,name')->where('is_active', true);
 
         if (request()->search) {
             $query->where('name', 'like', '%' . request()->search . '%');

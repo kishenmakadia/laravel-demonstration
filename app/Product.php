@@ -15,7 +15,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug',
+        'name', 'slug', 'is_active'
     ];
 
     protected $hidden = ['pivot'];
