@@ -41,10 +41,12 @@ class ProductController extends Controller
         request()->validate([
             'name' => 'required|string|max:255',
             'categories' => 'required|array',
+            'description' => 'required',
         ]);
 
         $product = Product::create([
             'name' => request()->name,
+            'description' => request()->description,
         ]);
 
         $product->categories()->sync(request()->categories);
@@ -92,9 +94,10 @@ class ProductController extends Controller
         request()->validate([
             'name' => 'required|string|max:255',
             'categories' => 'required|array',
+            'description' => 'required',
         ]);
 
-        $product->update(request()->only('name'));
+        $product->update(request()->only('name', 'description'));
 
         $product->categories()->sync(request()->categories);
 

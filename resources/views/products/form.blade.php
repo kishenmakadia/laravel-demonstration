@@ -24,9 +24,9 @@
             @endif
 
             <div class="form-group row">
-              <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+              <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('Name') }}</label>
 
-              <div class="col-md-6">
+              <div class="col-md-8">
                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                   value="{{ old('name', isset($product) ? $product->name : '' )}}" required autofocus>
 
@@ -39,14 +39,15 @@
             </div>
 
             <div class="form-group row">
-              <label for="categories" class="col-md-4 col-form-label text-md-right">{{ __('Categories') }}</label>
+              <label for="categories" class="col-md-2 col-form-label text-md-right">{{ __('Categories') }}</label>
 
-              <div class="col-md-6">
+              <div class="col-md-8">
                 @foreach ($categories as $key => $category)
                 <div class="form-check">
-                  <input type="checkbox" name="categories[]" id="category_{{$key}}" value="{{$category->id}}"
-                    class="form-check-input"
-                    {{ isset($errors) && $errors->has('categories') ? null : isset($product) ? $product->categories->contains($category) ? 'checked' : null : null }}>
+                  <input class="form-check-input" type="checkbox" name="categories[]" id="category_{{$key}}"
+                    value="{{$category->id}}" @if(isset($errors) && $errors->has('categories')) {{''}}
+                  @elseif((old('categories') && in_array($category->id,old('categories'))) ||
+                  (isset($product) && $product->categories->contains($category))) {{'checked'}} @endif>
                   <label class="form-check-label" for="category_{{$key}}">{{$category->name}}</label>
                 </div>
                 @endforeach
@@ -61,8 +62,25 @@
               </div>
             </div>
 
+
+            <div class="form-group row">
+              <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('Description') }}</label>
+
+              <div class="col-md-8">
+                <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror"
+                  name="description" required
+                  autofocus>{{ old('description', isset($product) ? $product->description : '' )}}</textarea>
+
+                @error('description')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+            </div>
+
             <div class="form-group row mb-0">
-              <div class="col-md-6 offset-md-4">
+              <div class="col-md-8 offset-md-4">
                 <a class="btn btn-secondary" href="{{route('products.index')}}">
                   {{ __('Back') }}
                 </a>
@@ -77,4 +95,11 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+<script>
+  CKEDITOR.replace( 'description' );
+</script>
 @endsection
