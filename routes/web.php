@@ -26,10 +26,12 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::middleware('role:admin')->group(function () {
+Route::middleware('auth')->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::resource('users', 'UserController')->except(['show']);
-    Route::resource('categories', 'CategoryController')->except(['show']);
-    Route::resource('products', 'ProductController')->except(['show']);
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('users', 'UserController')->except(['show']);
+        Route::resource('categories', 'CategoryController')->except(['show']);
+        Route::resource('products', 'ProductController')->except(['show']);
+    });
 });
