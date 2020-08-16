@@ -57,4 +57,10 @@ class AuthController extends Controller
 
         return  response()->json(['message' => 'Registration successful'], 200);
     }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+        return  response()->json(['message' => 'Logout successful.'], 200);
+    }
 }
