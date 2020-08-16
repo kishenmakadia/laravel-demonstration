@@ -28,6 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Slug') }}</th>
                                     <th>{{ __('Categories') }}</th>
                                     <th></th>
                                 </tr>
@@ -39,6 +40,9 @@
                                         <a href="{{route('products.edit',['product' => $product])}}">
                                             {{$product->name}}
                                         </a>
+                                    </td>
+                                    <td>
+                                        {{$product->slug}}
                                     </td>
                                     <td>{{$product->categories->count() ? $product->categories->implode('name', ', ') : '-'}}
                                     </td>

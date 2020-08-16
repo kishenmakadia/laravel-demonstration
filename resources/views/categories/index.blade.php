@@ -28,6 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Slug') }}</th>
                                     <th>{{ __('Products count') }}</th>
                                     <th></th>
                                 </tr>
@@ -39,6 +40,9 @@
                                         <a href="{{route('categories.edit',['category' => $category])}}">
                                             {{$category->name}}
                                         </a>
+                                    </td>
+                                    <td>
+                                        {{$category->slug}}
                                     </td>
                                     <td>{{$category->products_count}}</td>
                                     <td>

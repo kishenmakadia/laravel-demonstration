@@ -2,17 +2,20 @@
 
 namespace App;
 
+use App\Services\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use Sluggable;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name', 'slug',
     ];
 
     protected $hidden = ['pivot'];
