@@ -18,7 +18,12 @@ class AuthController extends Controller
             $type = 'phone';
         }
 
-        $credentials = [$type => request()->get('username'), 'password' => request()->get('password')];
+        $credentials = [
+            $type => request()->get('username'),
+            'password' => request()->get('password'),
+            'type' => 'user'
+        ];
+
         if (auth()->attempt($credentials)) {
             // we want user to logout from all other places
             // so deleting all the tokens
