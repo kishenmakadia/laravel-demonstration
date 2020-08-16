@@ -63,7 +63,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         return view('products.form', [
-            'categories' => Category::all(),
+            'categories' => Category::where('is_active', true)->get(),
             'product' => $product
         ]);
     }
