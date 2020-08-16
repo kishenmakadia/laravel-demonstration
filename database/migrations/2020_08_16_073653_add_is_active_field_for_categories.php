@@ -14,7 +14,7 @@ class AddIsActiveFieldForCategories extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->tinyInteger('is_active')->after('slug');
+            $table->tinyInteger('is_active')->after('slug')->default(1);
         });
     }
 
