@@ -26,7 +26,7 @@ class PhoneUniqueForUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('phone');
+            $table->dropUnique('users_phone_unique');
         });
     }
 }
